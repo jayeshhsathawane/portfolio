@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jayesh Sathawane </title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --yellow: #FF5733; /* Updated to Slate Orange (No Blue/Dark) */
+    --blue: #3B82F6;
+    --green: #22C55E;
+    --red: #EF4444;
+    --purple: #8B5CF6;
+    --orange: #F97316;
+    --pink: #EC4899;
+    --teal: #14B8A6;
+    --bg: #F5F0E8;
+    --shadow: 6px 6px 0px var(--black);
+    --shadow-lg: 8px 8px 0px var(--black);
+    --border: 3px solid var(--black);
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--yellow);
+    border-bottom: var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 0;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .nav-links a:hover {
+    background: var(--black);
+    color: var(--yellow);
+    border-color: var(--black);
+  }
+  .hamburger { display: flex; cursor: pointer; background: none; border: none; display: none; }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--yellow);
+    border-bottom: var(--border);
+    padding: 1rem 2rem;
+    gap: 0.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #ffffff40;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: calc(100vh - 64px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 4rem 4rem 4rem 4rem;
+    gap: 3rem;
+    border-bottom: var(--border);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.3rem 1rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 span { color: var(--yellow); }
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 1rem;
+  }
+  .hero-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 2rem;
+    max-width: 500px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .btn:active, .btn:hover { transform: translate(3px,3px); box-shadow: 3px 3px 0 var(--black); }
+  .btn-primary { background: var(--black); color: var(--yellow); }
+  .btn-secondary { background: var(--white); color: var(--black); }
+  .btn-green { background: var(--green); color: var(--black); }
+  .btn-blue { background: var(--blue); color: white; }
+  .btn-sm { padding: 0.5rem 1rem; font-size: 0.8rem; }
+
+  .hero-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat-box {
+    background: var(--bg);
+    border: var(--border);
+    box-shadow: 4px 4px 0 var(--black);
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat-num { font-size: 2rem; font-weight: 900; color: var(--yellow); }
+  .stat-label { font-size: 0.75rem; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+  .hero-contact { display: flex; flex-direction: column; gap: 0.5rem; }
+  .contact-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 500; }
+  .contact-item a { color: var(--yellow); text-decoration: none; font-weight: 600; }
+
+  /* ── SECTION ── */
+  section { padding: 5rem 4rem; border-bottom: var(--border); }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--yellow);
+    color: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 0.3rem 1rem;
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  .section-title span { color: var(--yellow); }
+  .section-desc { font-size: 0.9rem; color: #666; max-width: 550px; margin-bottom: 3rem; line-height: 1.6; }
+
+  /* ── EDUCATION ── */
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; }
+  .edu-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 1.8rem;
+  }
+  .edu-icon {
+    width: 48px; height: 48px;
+    background: var(--yellow);
+    color: var(--white);
+    border: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .edu-degree { font-size: 1rem; font-weight: 800; margin-bottom: 0.3rem; }
+  .edu-school { font-size: 0.85rem; font-weight: 700; color: var(--yellow); margin-bottom: 0.3rem; }
+  .edu-detail { font-size: 0.8rem; color: #666; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-category {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+  }
+  .skill-cat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px dashed var(--black);
+  }
+  .skill-cat-icon {
+    width: 36px; height: 36px;
+    border: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .skill-cat-icon.yellow { background: var(--yellow); color: var(--white); }
+  .skill-cat-icon.blue { background: var(--blue); color: white; }
+  .skill-cat-icon.green { background: var(--green); }
+  .skill-cat-icon.purple { background: var(--purple); color: white; }
+  .skill-cat-title { font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: var(--bg);
+    border: 2px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  /* ── EXPERIENCE (MOBILE FIXES) ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item { display: grid; grid-template-columns: 160px 40px 1fr; gap: 0 1.5rem; }
+  .timeline-date {
+    text-align: right;
+    padding-top: 1.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #555;
+    line-height: 1.4;
+  }
+  .timeline-spine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-dot {
+    width: 16px; height: 16px;
+    background: var(--yellow);
+    border: var(--border);
+    flex-shrink: 0;
+    margin-top: 1.5rem;
+  }
+  .timeline-line { flex: 1; width: 3px; background: var(--black); }
+  .timeline-item:last-child .timeline-line { display: none; }
+  .timeline-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .timeline-role { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.2rem; }
+  .timeline-company {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--yellow);
+    margin-bottom: 0.8rem;
+  }
+  .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .timeline-bullets li {
+    font-size: 0.83rem;
+    line-height: 1.5;
+    color: #444;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .timeline-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--yellow);
+    font-weight: 700;
+  }
+  .exp-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border: 2px solid var(--black);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.8rem;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .project-card:hover { transform: translate(-3px,-3px); box-shadow: 11px 11px 0 var(--black); }
+  .project-num { font-size: 3rem; font-weight: 900; color: #e8e0d0; line-height: 1; }
+  .project-title { font-size: 1.2rem; font-weight: 800; line-height: 1.2; }
+  .project-desc { font-size: 0.83rem; color: #555; line-height: 1.6; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .stack-badge {
+    padding: 0.25rem 0.6rem;
+    border: 2px solid var(--black);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge-python { background: #3776AB; color: white; }
+  .badge-dotnet { background: #512BD4; color: white; }
+  .badge-flask { background: #000; color: white; }
+  .badge-nlp { background: var(--green); color: #000; }
+  .badge-django { background: #092E20; color: white; }
+  .badge-mysql { background: #00618A; color: white; }
+  .badge-js { background: #F7DF1E; color: #000; }
+  .badge-csharp { background: var(--purple); color: white; }
+  .badge-sqlite { background: #5865F2; color: white; }
+
+  /* ── CERTS ── */
+  .certs-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cert-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+  .cert-icon {
+    width: 32px; height: 32px;
+    background: var(--yellow);
+    color: var(--white);
+    border: 2px solid var(--black);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: var(--yellow);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-name { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; }
+  .footer-sub { font-size: 0.82rem; color: #aaa; margin-top: 0.3rem; }
+  .footer-links { display: flex; gap: 0.75rem; }
+  .footer-link {
+    width: 40px; height: 40px;
+    background: var(--yellow);
+    color: var(--white);
+    border: 2px solid var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.1s;
+    text-decoration: none;
+  }
+  .footer-link:hover { transform: translate(-2px,-2px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 3rem 2rem; min-height: auto; gap: 2rem; }
+    section { padding: 3rem 2rem; }
+    nav { padding: 0 1.5rem; }
+    footer { padding: 2.5rem 2rem; }
+    .timeline-item { grid-template-columns: 100px 30px 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 2rem 1.2rem; }
+    section { padding: 2.5rem 1.2rem; }
+    footer { padding: 2rem 1.2rem; flex-direction: column; }
+    
+    /* MOBILE TIMELINE FIX: Hide the side timeline line and show stacked cards */
+    .timeline-item { grid-template-columns: 1fr; gap: 0; }
+    .timeline-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; font-size: 0.85rem; }
+    .timeline-spine { display: none; }
+    .timeline-card { margin-left: 0; margin-bottom: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">JS<span style="color:var(--black)">.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <i data-lucide="menu" style="width:24px;height:24px;color:white;"></i>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<section class="hero" id="about" style="border-top:none;">
+  <div>
+    <div class="hero-badge">
+      <i data-lucide="code-2" style="width:14px;height:14px;"></i> Software Engineer 
+    </div>
+    <h1>Jayesh R.<br><span>Sathawane</span></h1>
+
+    <p class="hero-desc">
+      Entry-level Software Engineer with hands-on experience building RESTful APIs, database-driven applications, and scalable backend systems. Passionate about clean architecture and bridging backend logic with frontend teams.
+    </p>
+    <div class="hero-btns">
+      <a href="mailto:jayeshrsathawane123@gmail.com" class="btn btn-primary">
+        <i data-lucide="mail" style="width:16px;height:16px;"></i> Contact Me
+      </a>
+      <a href="https://github.com/jayeshhsathawane/" target="_blank" class="btn btn-secondary">
+        <i data-lucide="github" style="width:16px;height:16px;"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/jayesh-sathawane-33b099211" target="_blank" class="btn btn-blue">
+        <i data-lucide="linkedin" style="width:16px;height:16px;"></i> LinkedIn
+      </a>
+      <a href="Jayesh_Sathawane_2026_Resume.pdf" class="btn btn-green" download="Jayesh_Resume">
+  <i data-lucide="download" style="width:16px;height:16px;"></i> Resume
+</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div style="display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:2px dashed #ccc;">
+      <div style="width:64px;height:64px;background:var(--yellow);color:white;border:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;flex-shrink:0;">JS</div>
+      <div>
+        <div style="font-weight:900;font-size:1.1rem;">Jayesh R. Sathawane</div>
+        <div style="font-size:0.78rem;color:#666;font-weight:600;">Entry-level Software Engineer</div>
+        <div style="font-size:0.75rem;color:#888;margin-top:0.2rem;">📍 Nagpur, Maharashtra</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Internships</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--green);">3</div>
+        <div class="stat-label">Key Projects</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--purple);">7+</div>
+        <div class="stat-label">Technologies</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--orange);">7.17</div>
+        <div class="stat-label">CGPA / 10</div>
+      </div>
+    </div>
+    <div class="hero-contact">
+      <div class="contact-item">
+        <i data-lucide="phone" style="width:14px;height:14px;color:var(--yellow);flex-shrink:0;"></i>
+        <a href="tel:8379093430">8379093430</a>
+      </div>
+      <div class="contact-item">
+        <i data-lucide="mail" style="width:14px;height:14px;color:var(--yellow);flex-shrink:0;"></i>
+        <a href="mailto:jayeshrsathawane123@gmail.com">jayeshrsathawane123@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <i data-lucide="graduation-cap" style="width:14px;height:14px;color:var(--yellow);flex-shrink:0;"></i>
+        <span>B.Tech CSE · G.H. Raisoni University, Amravati</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" style="background:#fff;">
+  <div class="section-label"><i data-lucide="graduation-cap" style="width:14px;height:14px;"></i> Academic Background</div>
+  <h2 class="section-title">My <span>Education</span></h2>
+  <p class="section-desc">Building strong theoretical foundations alongside hands-on development experience.</p>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-icon"><i data-lucide="university" style="width:24px;height:24px;"></i></div>
+      <div class="edu-degree">B.Tech in Computer Science & Engineering</div>
+      <div class="edu-school">G.H. Raisoni University, Amravati</div>
+      <div class="edu-detail" style="margin-bottom:0.5rem;">Sep 2023 – Ongoing</div>
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--yellow);color:white;border:2px solid var(--black);padding:0.3rem 0.75rem;font-weight:800;font-size:0.85rem;box-shadow:3px 3px 0 var(--black);">
+        CGPA: 7.17 / 10
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon" style="background:var(--blue);"><i data-lucide="monitor" style="width:24px;height:24px;color:white;"></i></div>
+      <div class="edu-degree">Diploma in Computer Technology</div>
+      <div class="edu-school">Government Polytechnic, Sakoli</div>
+      <div class="edu-detail" style="margin-bottom:0.5rem;">Aug 2020 – Jun 2023</div>
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--green);border:2px solid var(--black);padding:0.3rem 0.75rem;font-weight:800;font-size:0.85rem;box-shadow:3px 3px 0 var(--black);">
+        Percentage: 63.66%
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;">
+    <div class="section-label" style="margin-bottom:1.5rem;"><i data-lucide="award" style="width:14px;height:14px;"></i> Certifications</div>
+    <div class="certs-row">
+      <div class="cert-card">
+        <div class="cert-icon"><i data-lucide="check-circle" style="width:16px;height:16px;"></i></div>
+        Certificate in Python Programming
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon" style="background:var(--blue);"><i data-lucide="star" style="width:16px;height:16px;color:white;"></i></div>
+        TCS iON Edge – Young Professional
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label"><i data-lucide="cpu" style="width:14px;height:14px;"></i> Technical Arsenal</div>
+  <h2 class="section-title">My <span>Skills</span></h2>
+  <p class="section-desc">A diverse set of tools and technologies I've worked with across backend development, APIs, and data/ML workflows.</p>
+  <div class="skills-grid">
+    <div class="skill-category">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon yellow"><i data-lucide="code" style="width:18px;height:18px;"></i></div>
+        <div class="skill-cat-title">Languages</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C#</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon blue"><i data-lucide="layers" style="width:18px;height:18px;"></i></div>
+        <div class="skill-cat-title">Frameworks</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Django</span>
+        <span class="skill-tag">DRF</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">ASP.NET</span>
+        <span class="skill-tag">.NET (C#)</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon green"><i data-lucide="wrench" style="width:18px;height:18px;"></i></div>
+        <div class="skill-cat-title">Tools & Platforms</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Postman</span>
+        <span class="skill-tag">MS Office</span>
+        <span class="skill-tag">SQLite</span>
+        <span class="skill-tag">MySQL</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon purple"><i data-lucide="brain" style="width:18px;height:18px;"></i></div>
+        <div class="skill-cat-title">ML / Data Libraries</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">NLTK</span>
+        <span class="skill-tag">TF-IDF</span>
+        <span class="skill-tag">NLP</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:var(--orange); color: white;"><i data-lucide="globe" style="width:18px;height:18px;"></i></div>
+        <div class="skill-cat-title">API & Web Concepts</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">RESTful APIs</span>
+        <span class="skill-tag">JSON</span>
+        <span class="skill-tag">HTTP / HTTPS</span>
+        <span class="skill-tag">Authentication</span>
+        <span class="skill-tag">Backend Architecture</span>
+        <span class="skill-tag">RBAC</span>
+        <span class="skill-tag">DB Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="background:#fff;">
+  <div class="section-label"><i data-lucide="briefcase" style="width:14px;height:14px;"></i> Work History</div>
+  <h2 class="section-title">Professional <span>Experience</span></h2>
+  <p class="section-desc">Hands-on internships and developer roles ,building real-world backend solutions.</p>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">Oct 2025<br>–<br>Dec 2025</div>
+      <div class="timeline-spine">
+        <div class="timeline-dot" style="background:var(--blue);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-card">
+        <span class="exp-badge" style="background:var(--blue);color:white;">Internship</span>
+        <div class="timeline-role">Python Full Stack Intern</div>
+        <div class="timeline-company">Infosys Springboard</div>
+        <ul class="timeline-bullets">
+          <li>Implemented NLP preprocessing and feature engineering using NLTK — text cleaning, tokenization, and TF-IDF vectorization.</li>
+          <li>Developed a Flask-based web application integrated with an SQLite database for efficient data management.</li>
+          <li>Gained hands-on full-stack experience connecting Python backend logic with frontend interfaces.</li>
+        </ul>
+        <div class="project-stack" style="margin-top:0.8rem;">
+          <span class="stack-badge badge-python">Python</span>
+          <span class="stack-badge badge-flask">Flask</span>
+          <span class="stack-badge badge-nlp">NLTK</span>
+          <span class="stack-badge badge-sqlite">SQLite</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">Jul 2025<br>–<br>Dec 2025</div>
+      <div class="timeline-spine">
+        <div class="timeline-dot" style="background:var(--purple);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-card">
+        <span class="exp-badge" style="background:var(--purple);color:white;">Full-Time Role</span>
+        <div class="timeline-role">Dot Net Developer</div>
+        <div class="timeline-company">NRSolution4u, Nagpur</div>
+        <ul class="timeline-bullets">
+          <li>Worked on C# and ASP.NET backend development for enterprise-level applications.</li>
+          <li>Assisted in designing backend architecture and integrating robust database solutions.</li>
+        </ul>
+        <div class="project-stack" style="margin-top:0.8rem;">
+          <span class="stack-badge badge-csharp">C#</span>
+          <span class="stack-badge badge-dotnet">ASP.NET</span>
+          <span class="stack-badge badge-mysql">MySQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">Jun 2022<br>–<br>Aug 2022</div>
+      <div class="timeline-spine">
+        <div class="timeline-dot" style="background:var(--green);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-card">
+        <span class="exp-badge" style="background:var(--green);color:#000;">Internship</span>
+        <div class="timeline-role">PHP Intern</div>
+        <div class="timeline-company">VeeDev Software Pvt. Ltd.</div>
+        <ul class="timeline-bullets">
+          <li>Gained practical experience in web development and enhanced programming skills through real-world PHP projects.</li>
+          <li>Contributed to PHP-based web projects and improved understanding of full web development lifecycles.</li>
+        </ul>
+        <div class="project-stack" style="margin-top:0.8rem;">
+          <span class="stack-badge" style="background:#777CB5;color:white;">PHP</span>
+          <span class="stack-badge badge-js">JavaScript</span>
+          <span class="stack-badge badge-mysql">MySQL</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label"><i data-lucide="folder-open" style="width:14px;height:14px;"></i> Portfolio</div>
+  <h2 class="section-title">Key <span>Projects</span></h2>
+  <div class="projects-grid">
+   <div class="project-card">
+      <div class="project-num">01</div>
+      <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+        <div class="project-title">SmartEduGo Portal</div>
+        <div style="background:var(--purple);color:white;padding:0.2rem 0.6rem;border:2px solid var(--black);font-size:0.7rem;font-weight:700;">ASP.NET</div>
+      </div>
+      <p class="project-desc">
+        A full-featured web portal enabling student and college registration with secure login systems and role-based dashboards. Enables seamless interaction between students and companies, improving efficiency in education and placement processes.
+      </p>
+      <div class="project-stack">
+        <span class="stack-badge badge-dotnet">ASP.NET</span>
+        <span class="stack-badge badge-csharp">C#</span>
+        <span class="stack-badge badge-mysql">MySQL</span>
+        <span class="stack-badge badge-js">JavaScript</span>
+        <span class="stack-badge" style="background:#e34c26;color:white;">HTML/CSS</span>
+      </div>
+      <a href="https://github.com" target="_blank" class="btn btn-secondary btn-sm" style="width:fit-content;margin-top:auto;">
+        <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+        <div class="project-title">Pulse Hospital Management System</div>
+        <div style="background:var(--green);color:#000;padding:0.2rem 0.6rem;border:2px solid var(--black);font-size:0.7rem;font-weight:700;">Django</div>
+      </div>
+      <p class="project-desc">
+        A comprehensive HMS backend built with Django and DRF managing OPD, IPD, and Pharmacy workflows. Features role-based access control for Doctors, Receptionists, and Admins with a clean REST API layer for all operations.
+      </p>
+      <div class="project-stack">
+        <span class="stack-badge badge-python">Python</span>
+        <span class="stack-badge badge-django">Django</span>
+        <span class="stack-badge" style="background:#092E20;color:white;">DRF</span>
+        <span class="stack-badge badge-mysql">MySQL</span>
+        <span class="stack-badge badge-js">JavaScript</span>
+      </div>
+      <a href="https://github.com/jayeshhsathawane/Pulse_Hospital_Management_System-website" target="_blank" class="btn btn-green btn-sm" style="width:fit-content;margin-top:auto;">
+        <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+        <div class="project-title">Fake Job Detection Using NLP</div>
+        <div style="background:var(--orange);color:#000;padding:0.2rem 0.6rem;border:2px solid var(--black);font-size:0.7rem;font-weight:700;">NLP/ML</div>
+      </div>
+      <p class="project-desc">
+        An end-to-end web application that detects fraudulent job postings using NLP and Machine Learning. The system analyzes job descriptions using TF-IDF and Scikit-learn classifiers to label listings as "Real" or "Fake" with high confidence.
+      </p>
+      <div class="project-stack">
+        <span class="stack-badge badge-python">Python</span>
+        <span class="stack-badge badge-flask">Flask</span>
+        <span class="stack-badge badge-nlp">Scikit-learn</span>
+        <span class="stack-badge badge-nlp" style="background:#2e7d32;">NLTK</span>
+        <span class="stack-badge badge-sqlite">SQLite</span>
+        <span class="stack-badge badge-nlp" style="background:#f57f17;color:#000;">Pandas</span>
+      </div>
+      <a href="https://github.com/jayeshhsathawane/fake-job-detection-group" target="_blank" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:auto;">
+        <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- <section id="contact" style="background:var(--yellow);">
+  <div class="section-label" style="background:var(--black);color:var(--yellow);box-shadow:6px 6px 0 #fff;border-color:var(--black);">
+    <i data-lucide="send" style="width:14px;height:14px;"></i> Let's Connect
+  </div>
+  <h2 class="section-title"><span style="color:white;">Open to </span><span style="color:var(--black);text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--blue);">Opportunities</span></h2>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+    <a href="mailto:jayeshrsathawane123@gmail.com" class="btn btn-primary">
+      <i data-lucide="mail" style="width:16px;height:16px;"></i> Email Me
+    </a>
+    <a href="tel:8379093430" class="btn btn-secondary">
+      <i data-lucide="phone" style="width:16px;height:16px;"></i> 8379093430
+    </a>
+    <a href="https://www.linkedin.com/in/jayesh-sathawane-33b099211" target="_blank" class="btn btn-blue">
+      <i data-lucide="linkedin" style="width:16px;height:16px;"></i> LinkedIn
+    </a>
+  </div>
+</section> -->
+
+<footer>
+  <div>
+    <div class="footer-name">Jayesh Sathawane</div>
+    <div class="footer-sub" style="margin-top:0.5rem;">© 2026 · All rights reserved</div>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:jayeshrsathawane123@gmail.com" class="footer-link"><i data-lucide="mail" style="width:18px"></i></a>
+    <a href="https://github.com/jayeshhsathawane/" target="_blank" class="footer-link"><i data-lucide="github" style="width:18px"></i></a>
+    <a href="https://www.linkedin.com/in/jayesh-sathawane-33b099211" target="_blank" class="footer-link"><i data-lucide="linkedin" style="width:18px"></i></a>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>
